@@ -1,5 +1,11 @@
 version: '2.4'
 services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
   mongo:
     image: mongo:3.4
     networks:
@@ -34,6 +40,7 @@ services:
       DB_URI: mongodb://mongo/unifi
       STATDB_URI: mongodb://mongo/unifi_stat
       DB_NAME: unifi
+      VIRTUAL_HOST: unifi.digdug.org
     ports:
     - "8080:8080"
     - "8443:8443"
